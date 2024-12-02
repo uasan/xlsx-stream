@@ -1,0 +1,24 @@
+{
+  "name": "xlsx-stream",
+  "author": "uah",
+  "description": "xlsx-stream",
+  "version": "0.0.1",
+  "license": "ISC",
+  "private": false,
+  "type": "module",
+  "typings": "index.d.ts",
+  "engines": {
+    "node": ">=21.1.0"
+  },
+  "main": "./index.js",
+  "scripts": {},
+  "dependencies": {
+    "zip-stream": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest"
+  }
+}
