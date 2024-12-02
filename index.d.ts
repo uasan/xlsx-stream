@@ -5,7 +5,7 @@ interface ColumnOptions{
 
 interface SheetOptions {
   name?: string;
-  rows?: any[];
+  rows?: Iterable<any[]>;
   columns: ColumnOptions[];
 }
 
