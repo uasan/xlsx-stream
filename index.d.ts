@@ -15,4 +15,6 @@ interface  WriterXLSXOptions {
 
 export declare class WriterXLSX {
   constructor(options: WriterXLSXOptions);
+
+  [Symbol.asyncIterator](): Iterable<Uint8Array>
 }
