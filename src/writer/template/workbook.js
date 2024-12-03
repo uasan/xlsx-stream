@@ -11,7 +11,7 @@ export const setWorkbook = ({
     <workbookView xWindow="480" yWindow="60" windowWidth="18195" windowHeight="8505"/>
   </bookViews>
   <sheets>
-    ${sheets.map(({ id, name }) => `<sheet name="${escapeXML(name)}" sheetId="${id}" r:id="rId${id}"/>`).join('\n')}
+    ${sheets.map(({ id, name }) => `<sheet name="${escapeXML(name.slice(0, 31))}" sheetId="${id}" r:id="rId${id}"/>`).join('\n')}
   </sheets>
   <calcPr calcId="145621"/>
 </workbook>`;

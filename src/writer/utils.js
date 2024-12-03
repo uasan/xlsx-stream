@@ -6,8 +6,8 @@ export function noop() {}
 export const { isArray } = Array;
 export const isObject = value => value !== null && typeof value === 'object';
 
-export const escapeXML = string =>
-  string
+export const escapeXML = data =>
+  String(data)
     .replaceAll('&', '&amp;')
     .replaceAll('>', '&gt;')
     .replaceAll('<', '&lt;')
