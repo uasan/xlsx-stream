@@ -7,9 +7,8 @@ export const SHEET_HEADER = `<?xml version="1.0" encoding="UTF-8" standalone="ye
     <sheetView workbookViewId="0"/>
   </sheetViews>
   <sheetFormatPr baseColWidth="30" defaultRowHeight="15" x14ac:dyDescent="0.25"/>
-  <sheetData>
-`;
+  <sheetData>`;
 
-export const SHEET_FOOTER = `  </sheetData>
+export const SHEET_FOOTER = `</sheetData>
   <pageMargins left="0.7" right="0.7" top="0.75" bottom="0.75" header="0.3" footer="0.3"/>
 </worksheet>`;

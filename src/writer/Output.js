@@ -1,9 +1,18 @@
 import ZipStream from 'zip-stream';
-import { setZipFiles } from './zip.js';
+import { Queue } from './Queue.js';
+import { STYLE_SHEET } from './template/styles.js';
 import { noop, BUFFER_LENGTH, BUFFER_MAX_LENGTH } from './utils.js';
+import {
+  RELS,
+  setWorkbook,
+  setContentTypes,
+  setWorkbookRels,
+} from './template/workbook.js';
 
 export class Output {
   length = 0;
+
+  queue = null;
   writer = null;
 
   reject = noop;
@@ -20,12 +29,16 @@ export class Output {
     this.zip
       .on('warning', console.warn)
       .on('data', this.onData.bind(this))
-      .on('end', this.onEnd.bind(this))
+      .on('finish', this.onEnd.bind(this))
       .on('error', writer.abort.bind(writer));
+
+    this.queue = new Queue(this);
   }
 
   init() {
-    setZipFiles(this);
+    for (const sheet of this.writer.sheets) {
+      this.queue.enqueue(sheet.stream, `xl/worksheets/sheet${sheet.id}.xml`);
+    }
   }
 
   onData(bytes) {
@@ -63,5 +76,14 @@ export class Output {
   then(resolve, reject) {
     this.reject = reject;
     this.resolve = resolve;
+  }
+
+  finish() {
+    this.queue
+      .enqueue(RELS, '_rels/.rels')
+      .enqueue(STYLE_SHEET, 'xl/styles.xml')
+      .enqueue(setWorkbook(this.writer), 'xl/workbook.xml')
+      .enqueue(setContentTypes(this.writer), '[Content_Types].xml')
+      .enqueue(setWorkbookRels(this.writer), 'xl/_rels/workbook.xml.rels');
   }
 }

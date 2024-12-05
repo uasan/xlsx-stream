@@ -1,7 +1,7 @@
 import { Readable } from 'node:stream';
 import { SHEET_FOOTER } from './template/sheet.js';
 import { headToXML } from './xml/header.js';
-import { isArray, isObject } from './utils.js';
+import { isArray, isDone, isObject } from './utils.js';
 import { createColumn } from './xml/column.js';
 import { rowToXML } from './xml/row.js';
 
@@ -11,6 +11,8 @@ export class Sheet {
   columns = [];
 
   name = '';
+  isDone = false;
+
   writer = null;
   stream = null;
 
@@ -32,7 +34,10 @@ export class Sheet {
       throw new Error('Parameter sheets[].columns must be an array');
     }
 
-    this.stream.on('error', writer.abort.bind(writer));
+    this.stream
+      .on('end', this.onEnd.bind(this))
+      .on('error', writer.abort.bind(writer));
+
     this.stream.push(headToXML(this), 'utf8');
 
     if (rows) {
@@ -47,6 +52,14 @@ export class Sheet {
   close() {
     this.stream.push(SHEET_FOOTER, 'utf8');
     this.stream.push(null);
+  }
+
+  onEnd() {
+    this.isDone = true;
+
+    if (this.writer.sheets.every(isDone)) {
+      this.writer.output.finish();
+    }
   }
 
   async put(rows) {
