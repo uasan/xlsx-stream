@@ -33,7 +33,7 @@ async function test() {
 
   const sheet2 = writer.sheets[1];
   for (let i = 0; i < 100; i++) {
-    sheet2.write(['BBB' + i]);
+    sheet2.write(['' + i]);
   }
   sheet2.close();
 

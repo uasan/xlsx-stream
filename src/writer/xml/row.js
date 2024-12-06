@@ -1,5 +1,5 @@
 export function rowToXML(sheet, values) {
-  let xml = `<row r="${++sheet.count}" spans="1:${sheet.columns.length}" x14ac:dyDescent="0.2">`;
+  let xml = `<row r="${++sheet.count}" spans="1:1" x14ac:dyDescent="0.2">`;
 
   for (let i = 0; i < values.length; i++) {
     if (values[i] != null) {

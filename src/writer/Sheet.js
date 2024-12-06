@@ -23,7 +23,7 @@ export class Sheet {
     this.writer = writer;
 
     this.index = writer.sheets.length;
-    this.name = name || 'Sheet ' + this.index + 1;
+    this.name = name ? String(name) : 'Sheet ' + this.index + 1;
 
     if (isArray(columns)) {
       for (const column of columns)

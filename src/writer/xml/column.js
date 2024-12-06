@@ -11,7 +11,7 @@ function bigintToXML(value, index) {
 }
 
 function dateToXML(value, index) {
-  return `<c ${this.getId(index)} t="n" s="7"><v>${getDate(value)}</v></c>`;
+  return `<c ${this.getId(index)} t="n" s="2"><v>${getDate(value)}</v></c>`;
 }
 
 function booleanToXML(value, index) {
@@ -19,7 +19,7 @@ function booleanToXML(value, index) {
 }
 
 function stringToXML(value, index) {
-  return `<c ${this.getId(index)} t="inlineStr" s="6"><is><t>${escapeXML(value)}</t></is></c>`;
+  return `<c ${this.getId(index)} t="inlineStr" s="1"><is><t>${escapeXML(value)}</t></is></c>`;
 }
 
 export function createColumn(sheet, { type, head }) {

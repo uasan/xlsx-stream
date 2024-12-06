@@ -16,7 +16,8 @@ export const escapeXML = data =>
     .replaceAll("'", '&apos;')
     .replaceAll('"', '&quot;');
 
-export const sortSheets = (a, b) => a.index - b.index;
+export const sortSheets = (a, b) =>
+  a.index === b.index ? a.id - b.id : a.index - b.index;
 
 export function setSheetPageName(sheet) {
   let name = sheet.name;

@@ -15,11 +15,11 @@ export function headToXML(sheet) {
       const { head } = sheet.columns[i];
 
       if (head) {
-        cells += `<c r="${getCellId(sheet.count, i)}" t="inlineStr" s="6"><is><t>${escapeXML(head)}</t></is></c>`;
+        cells += `<c r="${getCellId(sheet.count, i)}" t="inlineStr" s="1"><is><t>${escapeXML(head)}</t></is></c>`;
       }
     }
 
-    xml += `<row r="${sheet.count}" spans="1:${sheet.columns.length}" x14ac:dyDescent="0.2">${cells}</row>`;
+    xml += `<row r="${sheet.count}" spans="1:1" x14ac:dyDescent="0.2">${cells}</row>`;
   }
 
   return xml;
