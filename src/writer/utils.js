@@ -15,3 +15,17 @@ export const escapeXML = data =>
     .replaceAll('<', '&lt;')
     .replaceAll("'", '&apos;')
     .replaceAll('"', '&quot;');
+
+export const sortSheets = (a, b) => a.index - b.index;
+
+export function setSheetPageName(sheet) {
+  let name = sheet.name;
+  let page = ' ' + sheet.page;
+
+  if (name.length + page.length > 31) {
+    name.slice(0, 31 - (name.length + page.length));
+  }
+
+  sheet.name = name + page;
+  return sheet;
+}

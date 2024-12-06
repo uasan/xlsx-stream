@@ -1,7 +1,7 @@
 import ZipStream from 'zip-stream';
 import { Queue } from './Queue.js';
 import { STYLE_SHEET } from './template/styles.js';
-import { noop, BUFFER_LENGTH, BUFFER_MAX_LENGTH } from './utils.js';
+import { noop, BUFFER_LENGTH, BUFFER_MAX_LENGTH, sortSheets } from './utils.js';
 import {
   RELS,
   setWorkbook,
@@ -35,10 +35,9 @@ export class Output {
     this.queue = new Queue(this);
   }
 
-  init() {
-    for (const sheet of this.writer.sheets) {
-      this.queue.enqueue(sheet.stream, `xl/worksheets/sheet${sheet.id}.xml`);
-    }
+  addSheet(sheet) {
+    sheet.id = this.writer.sheets.push(sheet);
+    this.queue.enqueue(sheet.stream, `xl/worksheets/sheet${sheet.id}.xml`);
   }
 
   onData(bytes) {
@@ -79,6 +78,7 @@ export class Output {
   }
 
   finish() {
+    this.writer.sheets.sort(sortSheets);
     this.queue
       .enqueue(RELS, '_rels/.rels')
       .enqueue(STYLE_SHEET, 'xl/styles.xml')

@@ -24,12 +24,10 @@ export class WriterXLSX {
 
     for (const sheet of sheets)
       if (isObject(sheet)) {
-        this.sheets.push(new Sheet(this, sheet));
+        this.output.addSheet(new Sheet(this, sheet));
       } else {
         throw new Error('Parameter sheets must be an array object');
       }
-
-    this.output.init();
   }
 
   abort(error) {
