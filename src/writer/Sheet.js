@@ -19,11 +19,11 @@ export class Sheet {
   writer = null;
   stream = null;
 
-  constructor(writer, { name, columns, rows }) {
+  constructor(writer, { columns, rows }) {
     this.writer = writer;
 
     this.index = writer.sheets.length;
-    this.name = name ? String(name) : 'Sheet ' + this.index + 1;
+    this.name = 'Sheet ' + this.index + 1;
 
     if (isArray(columns)) {
       for (const column of columns)
